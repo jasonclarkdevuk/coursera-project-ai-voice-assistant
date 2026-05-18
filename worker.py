@@ -38,6 +38,24 @@ def speech_to_text(audio_binary):
 def text_to_speech(text, voice=""):
     return None
 
-
+# Take in prompt and pass to OpenAI's GPT-3 API for a response
 def openai_process_message(user_message):
-    return None
+    # Set up prompt for OpenAI API
+    prompt = prompt = "Act like a personal assistant. You can respond to questions, translate sentences, summarize news, and give recommendations. Keep responses concise - 2 to 3 sentences maximum."
+
+    # Call the OpenAI Api to process our prompt using OpenAI library
+    openai_response = openai_client.chat.completions.create(
+        model="gpt-5-nano", # Specify the model for processing
+        messages=[
+            {"role": "system", "content": prompt}, # Set system role and behaviour
+            {"role": "user", "content": user_message} # Set user prompt / query
+        ],
+        max_completion_tokens=1000 # Max number of tokens that can be produced in a reply
+    )
+
+    print("OpenAI Response: ", openai_response)
+
+    # Parse and get response message
+    response_text = openai_response.choices[0].message.content
+
+    return response_text
