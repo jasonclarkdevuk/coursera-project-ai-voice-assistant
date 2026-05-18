@@ -35,9 +35,35 @@ def speech_to_text(audio_binary):
     
     return text
 
+# Pass text data to IBM Watson TTS to get spoken output
 def text_to_speech(text, voice=""):
-    return None
+    # Set up Watson TTS HTTP API URL
+    base_url = "https://sn-watson-tts.labs.skills.network"
+    api_url = base_url + '/text-to-speech/api/v1/synthesize?output=output_text.wav'
 
+    # If user has specified a voice, add parameter to APU url
+    if voice != "" and voice != "default":
+        api_url += "&voice=" + voice
+    
+    # Set headers for request
+    headers = {
+        "Accept": "audio/wav", # Send audio data in WAV format
+        "Content-Type": "application/json" # Format of body of POST request is JSON        
+    }
+
+    # Set up request body
+    json_data = {
+        "text": text
+    }
+
+    # Send HTTP POST request   
+    # Response is binary audio data in the content of response
+    response = requests.post(api_url, headers=headers, json=json_data)
+
+    print("TTS Response: ", response)
+
+    return response.content
+    
 # Take in prompt and pass to OpenAI's GPT-3 API for a response
 def openai_process_message(user_message):
     # Set up prompt for OpenAI API
