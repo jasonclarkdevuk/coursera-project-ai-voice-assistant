@@ -12,27 +12,22 @@ def speech_to_text(audio_binary):
 
     # Set up parameters for request
     # Use US English model for processing speech
-    parameters = {
-        "model": "en-US-_Multimedia"
-    }
-
-    # Set up request body - sending audio data in body of POSt request
-    body = audio_binary
+    parameters = {"model": "en-US_Multimedia"}
 
     # Send HTTP POST request
-    # Convert response to JSON
-    response = requests.post(api_url, params=params, data=audio_binary)
+    response = requests.post(
+        api_url, params=parameters, data=audio_binary
+    ).json()
 
-    # Parse response
-    text = null
+    text = "null"
+
+    # Check if 'results' exists and is not empty
     if response.get("results"):
+        # Safely grab the last result and its last alternative transcript
         latest_result = response.get("results")[-1]
-        latest_text = latest_result.get("alternatives")[-1].get("transcript")
+        text = latest_result.get("alternatives")[-1].get("transcript")
+        print("Recognised Text: ", text)
 
-        print("Recognised Text: ", latest_text)
-
-        text = latest_text
-    
     return text
 
 # Pass text data to IBM Watson TTS to get spoken output
