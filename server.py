@@ -72,7 +72,7 @@ def process_prompt_route():
         mimetype='application/json'
     )
 
-    print ("Process Prompt Response: ", response)
+    print("Process Prompt Response: ", response)
     
     return response
 
