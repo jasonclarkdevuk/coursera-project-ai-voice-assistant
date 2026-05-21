@@ -7,3 +7,5 @@ A virtual assistant that can take voice input, convert it to text using speech-t
 The voice assistant will have a responsive front-end using HTML, CSS, and JavaScript, and a reliable back-end using Flask.
 
 Note: There should be a certs folder that contains the rootCA.cert however it has not been pushed to this repoistory.
+
+This would be added to project via a command that looks similar to: cp /usr/local/share/ca-certificates/rootCA.crt /home/project/chatapp-with-voice-and-openai-outline/certs/
