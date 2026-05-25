@@ -36,7 +36,7 @@ def text_to_speech(text, voice=""):
     base_url = "https://sn-watson-tts.labs.skills.network"
     api_url = base_url + '/text-to-speech/api/v1/synthesize?output=output_text.wav'
 
-    # If user has specified a voice, add parameter to APU url
+    # If user has specified a voice, add parameter to API url
     if voice != "" and voice != "default":
         api_url += "&voice=" + voice
     
